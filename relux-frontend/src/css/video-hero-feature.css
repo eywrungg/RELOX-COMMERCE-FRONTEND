@@ -1,0 +1,580 @@
+/* ========================================
+   VIDEO HERO FEATURE - REFINED & BALANCED
+   ======================================== */
+
+.videohero-section {
+  position: relative;
+  min-height: 90vh;
+  height: 90vh;
+  width: 100%;
+  overflow: hidden;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  /* Break out of main-content margins */
+  margin-left: -12rem !important;
+  margin-right: -5rem !important;
+  width: calc(100% + 17rem) !important;
+}
+
+/* ========================================
+   VIDEO BACKGROUND
+   ======================================== */
+.videohero-video-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.videohero-video-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: cover;
+  filter: brightness(0.6) contrast(1.3) saturate(1.25);
+}
+
+/* Overlay System */
+.videohero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.videohero-overlay-base {
+  position: absolute;
+  inset: 0;
+  background: 
+    linear-gradient(135deg, 
+      rgba(10, 10, 10, 0.75) 0%, 
+      rgba(26, 26, 26, 0.5) 50%, 
+      rgba(10, 10, 10, 0.75) 100%
+    );
+}
+
+.videohero-overlay-glow {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at 25% 45%, rgba(251, 191, 36, 0.12) 0%, transparent 55%),
+    radial-gradient(ellipse at 75% 55%, rgba(245, 158, 11, 0.08) 0%, transparent 55%);
+  animation: videoheroGlowPulse 8s ease-in-out infinite;
+}
+
+@keyframes videoheroGlowPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.videohero-overlay-vignette {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.5) 100%);
+}
+
+/* ========================================
+   CONTENT - CENTERED & COMPACT
+   ======================================== */
+.videohero-content-wrapper {
+  position: absolute;
+  top: 52%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  width: 92%;
+  max-width: 1100px;
+  padding: 0 2rem;
+}
+
+.videohero-content {
+  text-align: center;
+  color: #fff;
+}
+
+/* ========================================
+   EYEBROW
+   ======================================== */
+.videohero-eyebrow {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  transform: translateY(25px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.videohero-eyebrow.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.videohero-eyebrow-text {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 900;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: #fbbf24;
+  padding: 0.6rem 1.5rem;
+  border: 2px solid rgba(251, 191, 36, 0.5);
+  border-radius: 50px;
+  background: rgba(251, 191, 36, 0.12);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 20px rgba(251, 191, 36, 0.25);
+}
+
+/* ========================================
+   SPLIT TITLE - ENHANCED ANIMATION
+   ======================================== */
+.videohero-title.split-text {
+  font-family: 'Playfair Display', 'Space Grotesk', serif;
+  font-size: clamp(2.5rem, 7vw, 5rem);
+  font-weight: 900;
+  line-height: 0.9;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.03em;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.videohero-title .text-left,
+.videohero-title .text-right {
+  display: inline-block;
+  transition: all 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  background: linear-gradient(135deg, #ffffff 0%, #fbbf24 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 8px 32px rgba(251, 191, 36, 0.4));
+  will-change: transform;
+}
+
+.videohero-title .text-left {
+  transform: 
+    translateX(calc((1 - var(--split)) * -150px)) 
+    rotate(calc((1 - var(--split)) * -15deg))
+    scale(calc(0.7 + var(--split) * 0.3));
+  opacity: var(--split);
+}
+
+.videohero-title .text-right {
+  transform: 
+    translateX(calc((1 - var(--split)) * 150px)) 
+    rotate(calc((1 - var(--split)) * 15deg))
+    scale(calc(0.7 + var(--split) * 0.3));
+  opacity: var(--split);
+}
+
+/* ========================================
+   SUBTITLE - COMPACT
+   ======================================== */
+.videohero-subtitle {
+  font-size: clamp(0.85rem, 1.5vw, 1.05rem);
+  line-height: 1.7;
+  margin-bottom: 2rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 300;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
+}
+
+.videohero-subtitle.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ========================================
+   FEATURE CARDS - IMAGE PLACEHOLDERS
+   ======================================== */
+.videohero-features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+  max-width: 850px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.videohero-feature-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  overflow: hidden;
+  backdrop-filter: blur(20px);
+  position: relative;
+  
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--delay);
+}
+
+.videohero-features.visible .videohero-feature-card {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.videohero-feature-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(251, 191, 36, 0.5);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+}
+
+/* Feature Image */
+.videohero-feature-image {
+  width: 100%;
+  aspect-ratio: 4/3;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.1), rgba(245, 158, 11, 0.05));
+}
+
+.videohero-feature-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.videohero-feature-card:hover .videohero-feature-image img {
+  transform: scale(1.08);
+}
+
+.videohero-feature-image-placeholder {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(245, 158, 11, 0.1));
+}
+
+.placeholder-icon {
+  font-size: 3rem;
+  opacity: 0.3;
+}
+
+/* Feature Content */
+.videohero-feature-content {
+  padding: 1.25rem 1rem;
+  text-align: center;
+}
+
+.videohero-feature-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+  color: #fff;
+}
+
+.videohero-feature-desc {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.5;
+}
+
+.videohero-feature-shine {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent, rgba(251, 191, 36, 0.12), transparent);
+  transform: translateX(-100%) rotate(45deg);
+  transition: transform 0.6s ease;
+  pointer-events: none;
+}
+
+.videohero-feature-card:hover .videohero-feature-shine {
+  transform: translateX(100%) rotate(45deg);
+}
+
+/* ========================================
+   CTA SECTION - COMPACT
+   ======================================== */
+.videohero-cta-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  
+  opacity: 0;
+  transform: translateY(40px) scale(0.96);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
+}
+
+.videohero-cta-section.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.videohero-price-tag {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 1rem 2.5rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 2px solid rgba(251, 191, 36, 0.35);
+  border-radius: 16px;
+  backdrop-filter: blur(20px);
+}
+
+.videohero-price-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.videohero-price {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #fbbf24;
+  letter-spacing: -0.02em;
+}
+
+.videohero-cta-buttons {
+  display: flex;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.videohero-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 1rem 2.25rem;
+  border: 2px solid transparent;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+}
+
+.videohero-btn svg {
+  transition: transform 0.3s ease;
+}
+
+.videohero-btn-primary {
+  background: linear-gradient(135deg, #D4AF37, #FFD700);
+  color: #000;
+  border-color: rgba(251, 191, 36, 0.6);
+  box-shadow: 0 8px 28px rgba(251, 191, 36, 0.35);
+}
+
+.videohero-btn-primary:hover {
+  transform: translateY(-4px) scale(1.04);
+  box-shadow: 0 12px 38px rgba(251, 191, 36, 0.5);
+}
+
+.videohero-btn-primary:hover svg {
+  transform: translateX(4px);
+}
+
+.videohero-btn-secondary {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(10px);
+}
+
+.videohero-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(251, 191, 36, 0.6);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.videohero-btn-secondary:hover svg {
+  transform: translateX(4px);
+}
+
+/* ========================================
+   SCROLL HINT
+   ======================================== */
+.videohero-scroll-hint {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  animation: videoheroBounce 2.5s ease-in-out infinite;
+}
+
+.videohero-scroll-hint svg {
+  color: #fbbf24;
+}
+
+@keyframes videoheroBounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-10px); }
+}
+
+/* ========================================
+   RESPONSIVE - COPIED FROM ABOUT.CSS
+   ======================================== */
+
+/* Tablet adjustments (1280px) */
+@media (max-width: 1280px) {
+  .videohero-section {
+    margin-left: -10rem !important;
+    margin-right: -4rem !important;
+    width: calc(100% + 14rem) !important;
+  }
+}
+
+/* Mobile landscape / tablet portrait (1024px) */
+@media (max-width: 1024px) {
+  .videohero-section {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    width: 100% !important;
+    min-height: 80vh;
+    height: 80vh;
+  }
+  
+  .videohero-features {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    max-width: 450px;
+  }
+}
+
+/* Mobile (768px) - matching About page breakpoints */
+@media (max-width: 768px) {
+  .videohero-section {
+    min-height: 70vh;
+    height: 70vh;
+  }
+
+  .videohero-content-wrapper {
+    top: 50%;
+  }
+
+  .videohero-title.split-text {
+    font-size: clamp(3rem, 12vw, 6rem);
+    gap: 1rem;
+  }
+  
+  .videohero-subtitle {
+    font-size: 0.85rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .videohero-eyebrow-text {
+    font-size: 0.55rem;
+    padding: 0.5rem 1.2rem;
+  }
+  
+  .videohero-features {
+    gap: 1rem;
+  }
+
+  .videohero-feature-card {
+    font-size: 3rem;
+  }
+  
+  .videohero-price {
+    font-size: 1.3rem;
+  }
+  
+  .videohero-cta-buttons {
+    flex-direction: column;
+    width: 100%;
+    max-width: 350px;
+  }
+  
+  .videohero-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .videohero-scroll-hint {
+    font-size: 0.6rem;
+  }
+}
+
+/* Small mobile (480px) */
+@media (max-width: 480px) {
+  .videohero-section {
+    min-height: 65vh;
+    height: 65vh;
+  }
+
+  .videohero-title.split-text {
+    font-size: clamp(2rem, 10vw, 4rem);
+  }
+
+  .videohero-subtitle {
+    font-size: 0.75rem;
+  }
+
+  .videohero-eyebrow-text {
+    font-size: 0.5rem;
+    padding: 0.4rem 1rem;
+  }
+  
+  .videohero-scroll-hint {
+    bottom: 1.5rem;
+  }
+
+  .videohero-features {
+    gap: 0.75rem;
+  }
+}
+
+/* ========================================
+   REDUCED MOTION
+   ======================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .videohero-eyebrow.visible,
+  .videohero-subtitle.visible,
+  .videohero-features.visible .videohero-feature-card,
+  .videohero-cta-section.visible {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

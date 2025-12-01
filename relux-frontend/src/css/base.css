@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+:root{
+  --relux-bg:#ffffff;
+  --relux-fg:#111111;
+  --relux-muted:#6b7280;
+  --relux-border:rgba(17,24,39,0.08);
+  --relux-panel:#ffffff;
+  --relux-gold:#fbbf24;
+
+  /* video tuning */
+  --video-brightness: 1;
+  --video-contrast: 1.05;
+  --video-saturation: 1.05;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html,body,#root{height:100%}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--relux-bg);
+  color:var(--relux-fg);
+  overflow-x:hidden;
+}
+
+.App{position:relative;min-height:100vh}
+
+/* layout that respects fixed sidebars */
+.main-content{
+  margin-left:12rem;   /* sidebar width */
+  margin-right:5rem;   /* social sidebar width */
+  min-height:100vh;
+  position:relative;
+  z-index:0;
+}
+
+/* CRITICAL FIX: Allow video hero to break out of margins */
+.main-content .video-hero-feature {
+  margin-left: -12rem !important;
+  margin-right: -5rem !important;
+  width: calc(100% + 17rem) !important;
+}
+
+.container{
+  width:100%;
+  margin-left:auto;margin-right:auto;
+  padding-left:2rem;padding-right:2rem;
+  max-width:1536px;
+}
+
+@media (max-width:1280px){
+  .main-content{margin-left:10rem;margin-right:4rem}
+  
+  /* Adjust video hero breakout */
+  .main-content .video-hero-feature {
+    margin-left: -10rem !important;
+    margin-right: -4rem !important;
+    width: calc(100% + 14rem) !important;
+  }
+}
+
+@media (max-width:1024px){
+  .main-content{margin-left:0;margin-right:0}
+  
+  /* Reset video hero on mobile - no sidebars */
+  .main-content .video-hero-feature {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    width: 100% !important;
+  }
+}

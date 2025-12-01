@@ -1,0 +1,847 @@
+/* ==========================
+   RELUX – CURATED SHOWCASE
+   Premium Collection Display - ULTRA SMOOTH Animations
+   ========================== */
+
+:root {
+  --relux-header-h: 76px;
+  --gold-primary: #fbbf24;
+  --gold-secondary: #f59e0b;
+  --gold-dark: #d97706;
+}
+
+/* ========================================
+   SECTION ROOT - COMPLETELY TRANSPARENT
+   ======================================== */
+.curated-showcase {
+  position: relative;
+  isolation: isolate;
+  z-index: 1;
+  padding-top: calc(var(--relux-header-h) + 140px);
+  padding-bottom: clamp(140px, 16vw, 180px);
+  scroll-margin-top: calc(var(--relux-header-h) + 16px);
+}
+
+.curated-showcase::before {
+  content: '';
+  position: absolute;
+  top: calc(var(--relux-header-h) + 80px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(251, 191, 36, 0.3), transparent);
+}
+
+/* ========================================
+   CONTAINER
+   ======================================== */
+.showcase-container.container { 
+  max-width: 1500px; 
+  margin: 0 auto; 
+  padding: 0 2.5rem;
+}
+
+/* ========================================
+   PREMIUM FLOATING MARQUEE
+   ======================================== */
+.showcase-marquee {
+  position: relative;
+  z-index: 2;
+  mask-image: linear-gradient(90deg, transparent 0, #000 12%, #000 88%, transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 12%, #000 88%, transparent 100%);
+  overflow: hidden; 
+  margin-bottom: 5rem;
+  padding: 1.75rem 0;
+}
+
+.marquee-track { 
+  display: flex; 
+  gap: 2.5rem;
+  animation: marquee-flow 30s linear infinite; 
+  white-space: nowrap;
+  will-change: transform;
+}
+
+@keyframes marquee-flow { 
+  from { transform: translateX(0) } 
+  to { transform: translateX(-50%) } 
+}
+
+.brand-chip {
+  display: inline-flex; 
+  align-items: center; 
+  justify-content: center;
+  padding: .75rem 1.75rem;
+  border-radius: 9999px; 
+  font-weight: 900;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 2px solid rgba(251, 191, 36, 0.25); 
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(252, 252, 250, 0.98));
+  color: #0a0a0a;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  backdrop-filter: blur(12px);
+}
+
+.brand-chip:hover {
+  background: linear-gradient(135deg, var(--gold-primary), var(--gold-secondary));
+  border-color: var(--gold-primary);
+  color: #000;
+  transform: translateY(-6px) scale(1.12);
+  box-shadow: 0 16px 48px rgba(251, 191, 36, 0.45);
+}
+
+/* ========================================
+   PREMIUM TITLE SECTION - CENTERED
+   ======================================== */
+.showcase-title-section { 
+  position: relative; 
+  z-index: 3; 
+  margin: 0 0 5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.title-content {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.title-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: .7rem 1.75rem;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(245, 158, 11, 0.1));
+  border: 2px solid rgba(251, 191, 36, 0.35);
+  color: var(--gold-dark); 
+  letter-spacing: .2em; 
+  font-weight: 900; 
+  font-size: .7rem;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  box-shadow: 0 6px 28px rgba(251, 191, 36, 0.2);
+  backdrop-filter: blur(10px);
+  animation: badge-glow 3s ease-in-out infinite;
+  position: relative;
+}
+
+.title-badge::before {
+  content: '';
+  position: absolute;
+  left: 1rem;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold-primary), var(--gold-secondary));
+  box-shadow: 0 0 16px rgba(251, 191, 36, 0.7);
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes badge-glow {
+  0%, 100% { box-shadow: 0 6px 28px rgba(251, 191, 36, 0.2); }
+  50% { box-shadow: 0 10px 40px rgba(251, 191, 36, 0.4); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.3); }
+}
+
+.showcase-main-title {
+  font-family: 'Playfair Display', 'Space Grotesk', serif;
+  font-weight: 900; 
+  letter-spacing: -0.03em; 
+  color: #0a0a0a;
+  font-size: clamp(2.75rem, 5.5vw, 5rem);
+  line-height: 1.12;
+  margin: 0 0 1.5rem;
+  position: relative;
+}
+
+.title-highlight {
+  background: linear-gradient(135deg, var(--gold-primary) 0%, var(--gold-secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+  display: inline-block;
+}
+
+.title-highlight::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--gold-primary), var(--gold-secondary), transparent);
+  border-radius: 2px;
+}
+
+.showcase-description {
+  font-size: 1.15rem;
+  color: #6b7280;
+  font-weight: 500;
+  line-height: 1.8;
+  max-width: 750px;
+  margin: 0 auto;
+}
+
+/* ========================================
+   COLLECTION CTA BUTTON
+   ======================================== */
+.collection-cta {
+  padding: 1.2rem 3.5rem;
+  background: linear-gradient(135deg, var(--gold-primary), var(--gold-secondary));
+  color: #000;
+  font-weight: 900;
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 60px;
+  cursor: pointer;
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 12px 40px rgba(251, 191, 36, 0.4);
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.collection-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+
+.collection-cta:hover::before {
+  transform: translateX(100%);
+}
+
+.collection-cta svg {
+  transition: transform 0.4s ease;
+}
+
+.collection-cta:hover {
+  transform: translateY(-6px) scale(1.05);
+  box-shadow: 0 20px 60px rgba(251, 191, 36, 0.6);
+}
+
+.collection-cta:hover svg {
+  transform: translateX(6px);
+}
+
+.collection-cta:active {
+  transform: translateY(-3px) scale(1.03);
+}
+
+/* ========================================
+   LOADING STATE
+   ======================================== */
+.showcase-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 450px;
+  gap: 2rem;
+}
+
+.loading-ring {
+  width: 64px;
+  height: 64px;
+  border: 5px solid rgba(251, 191, 36, 0.2);
+  border-top-color: var(--gold-primary);
+  border-radius: 50%;
+  animation: ring-spin 0.9s linear infinite;
+}
+
+@keyframes ring-spin {
+  to { transform: rotate(360deg); }
+}
+
+.showcase-loading p {
+  color: #4b5563;
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0.03em;
+}
+
+.showcase-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  gap: 1.5rem;
+  color: #9ca3af;
+}
+
+.showcase-empty svg {
+  opacity: 0.3;
+}
+
+.showcase-empty p {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+/* ========================================
+   PREMIUM GRID LAYOUT
+   ======================================== */
+.curated-grid {
+  --cols: 4;
+  display: grid; 
+  gap: clamp(2rem, 3.5vw, 3rem);
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  margin-top: 3.5rem; 
+  position: relative; 
+  z-index: 1;
+}
+
+/* ========================================
+   LUXURY CARDS - BUTTER SMOOTH ANIMATIONS!
+   ======================================== */
+.curated-card {
+  --delay: 0ms;
+  border-radius: 24px;
+  overflow: hidden; 
+  border: 1px solid rgba(251, 191, 36, 0.2);
+  background: linear-gradient(135deg, #ffffff 0%, #fefdfb 100%);
+  position: relative;
+  max-width: 380px;
+  margin: 0 auto;
+  cursor: pointer;
+  width: 100%;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+  
+  /* ENHANCED: Start hidden, ultra smooth reveal */
+  opacity: 0;
+  transform: translateY(40px) scale(0.95);
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
+              border-color 0.6s ease;
+  
+  /* Performance boost */
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ENHANCED: Smooth entry when visible - NO JANK! */
+.curated-card.is-visible {
+  animation: card-ultra-smooth 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: var(--delay);
+}
+
+@keyframes card-ultra-smooth {
+  0% { 
+    opacity: 0; 
+    transform: translateY(40px) scale(0.95);
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% { 
+    opacity: 1; 
+    transform: translateY(0) scale(1);
+  }
+}
+
+.card-link { 
+  display: block; 
+  color: inherit; 
+  text-decoration: none;
+  height: 100%;
+}
+
+/* ========================================
+   VISUAL CONTAINER - IMAGE SECTION
+   ======================================== */
+.card-visual { 
+  width: 100%; 
+  aspect-ratio: 4 / 5;
+  background: linear-gradient(135deg, #f9fafb 0%, #f0f0f0 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+}
+
+.image-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(251, 191, 36, 0.15) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+}
+
+.curated-card:hover .image-glow {
+  opacity: 1;
+}
+
+/* ========================================
+   PREMIUM BADGE
+   ======================================== */
+.premium-badge {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  padding: .6rem 1.3rem;
+  background: linear-gradient(135deg, var(--gold-primary), var(--gold-secondary));
+  color: #000;
+  font-weight: 900;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: 60px;
+  z-index: 2;
+  box-shadow: 0 8px 28px rgba(251, 191, 36, 0.5);
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  animation: badge-float 3s ease-in-out infinite;
+}
+
+@keyframes badge-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+/* ========================================
+   TIMEPIECE IMAGE
+   ======================================== */
+.timepiece-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: contrast(1.1) saturate(1.2) brightness(1.02);
+  transition: transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+.curated-card:hover .timepiece-image {
+  transform: scale(1.15) rotate(3deg);
+}
+
+/* ========================================
+   CARD DETAILS - SOLID BACKGROUND
+   ======================================== */
+.card-details { 
+  padding: 1.75rem 1.75rem 2rem;
+  background: linear-gradient(180deg, #ffffff 0%, #fefdfb 100%);
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-top: 2px solid rgba(251, 191, 36, 0.2);
+  position: relative;
+}
+
+.card-details::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.curated-card:hover .card-details::before {
+  opacity: 1;
+}
+
+.details-content {
+  margin-bottom: 1rem;
+}
+
+.timepiece-name { 
+  font-weight: 900; 
+  margin: 0 0 .5rem;
+  font-size: 1.2rem;
+  line-height: 1.3;
+  color: #0a0a0a;
+  transition: color 0.3s ease;
+  letter-spacing: -0.01em;
+}
+
+.curated-card:hover .timepiece-name {
+  color: var(--gold-dark);
+}
+
+.timepiece-brand {
+  font-size: 0.8rem;
+  color: #6b7280;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.price-tag { 
+  font-weight: 900; 
+  color: #0a0a0a;
+  font-size: 1.6rem;
+  background: linear-gradient(135deg, var(--gold-primary), var(--gold-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.02em;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.price-tag::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: linear-gradient(135deg, var(--gold-primary), var(--gold-secondary));
+  border-radius: 50%;
+  box-shadow: 0 0 12px rgba(251, 191, 36, 0.7);
+  animation: price-pulse 2s ease-in-out infinite;
+}
+
+@keyframes price-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.7; }
+}
+
+/* ========================================
+   PREMIUM HOVER EFFECTS
+   ======================================== */
+.curated-card:hover { 
+  box-shadow: 0 32px 80px rgba(251, 191, 36, 0.3);
+  transform: translateY(-16px) scale(1.04);
+  border-color: rgba(251, 191, 36, 0.6);
+  background: linear-gradient(135deg, #ffffff 0%, #fffef7 100%);
+}
+
+/* ========================================
+   RESPONSIVE DESIGN - ENHANCED MOBILE
+   ======================================== */
+
+/* Large tablets & small desktops */
+@media (max-width: 1200px) {
+  .curated-grid { --cols: 3 }
+  .curated-showcase { 
+    padding-top: calc(var(--relux-header-h) + 100px);
+    padding-bottom: 120px;
+  }
+  .showcase-container.container {
+    padding: 0 2rem;
+  }
+}
+
+/* Tablets */
+@media (max-width: 900px) {
+  .curated-grid { 
+    --cols: 2;
+    gap: 2rem;
+  }
+  .showcase-main-title { 
+    font-size: clamp(2.25rem, 6vw, 3.5rem);
+  }
+  .showcase-marquee {
+    margin-bottom: 4rem;
+  }
+  .marquee-track {
+    gap: 2rem;
+  }
+  .brand-chip {
+    padding: .65rem 1.5rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* Mobile landscape & small tablets */
+@media (max-width: 768px) {
+  .curated-grid { 
+    --cols: 2;
+    gap: 1.5rem;
+  }
+  
+  .curated-card {
+    max-width: 100%;
+    border-radius: 20px;
+  }
+  
+  .card-visual {
+    aspect-ratio: 3 / 4; /* Slightly taller for mobile */
+  }
+  
+  .premium-badge {
+    top: 12px;
+    left: 12px;
+    padding: 0.5rem 1.1rem;
+    font-size: 0.65rem;
+  }
+  
+  .card-details {
+    padding: 1.5rem 1.5rem 1.75rem;
+    min-height: 120px;
+  }
+  
+  .timepiece-name {
+    font-size: 1.05rem;
+    margin-bottom: 0.4rem;
+  }
+  
+  .timepiece-brand {
+    font-size: 0.75rem;
+  }
+  
+  .price-tag {
+    font-size: 1.35rem;
+  }
+  
+  .price-tag::before {
+    width: 6px;
+    height: 6px;
+  }
+  
+  .showcase-title-section {
+    margin-bottom: 3.5rem;
+    gap: 2rem;
+  }
+  
+  .title-badge {
+    padding: .6rem 1.5rem;
+    font-size: 0.65rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .title-badge::before {
+    width: 8px;
+    height: 8px;
+  }
+  
+  .showcase-description {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+  
+  .collection-cta {
+    width: 100%;
+    max-width: 400px;
+    padding: 1.1rem 2.5rem;
+    font-size: 0.85rem;
+    justify-content: center;
+  }
+  
+  .collection-cta svg {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .showcase-marquee {
+    margin-bottom: 3.5rem;
+    padding: 1.5rem 0;
+  }
+  
+  .curated-showcase::before {
+    width: 200px;
+  }
+}
+
+/* Mobile portrait - optimized for phones */
+@media (max-width: 640px) {
+  .curated-grid { 
+    --cols: 1;
+    gap: 2rem;
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .curated-showcase { 
+    padding-top: calc(var(--relux-header-h) + 60px);
+    padding-bottom: 80px;
+  }
+  
+  .showcase-container.container {
+    padding: 0 1.25rem;
+  }
+  
+  .curated-card {
+    border-radius: 18px;
+  }
+  
+  .card-visual {
+    aspect-ratio: 4 / 5; /* Standard on mobile */
+  }
+  
+  .showcase-main-title {
+    font-size: clamp(1.85rem, 8vw, 2.75rem);
+    line-height: 1.15;
+  }
+  
+  .title-highlight::after {
+    height: 2px;
+    bottom: -6px;
+  }
+  
+  .showcase-description {
+    font-size: 0.95rem;
+    line-height: 1.65;
+  }
+  
+  .showcase-title-section {
+    margin-bottom: 3rem;
+    gap: 1.75rem;
+  }
+  
+  .title-badge {
+    padding: .55rem 1.3rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+  }
+  
+  .collection-cta {
+    padding: 1rem 2rem;
+    font-size: 0.8rem;
+    gap: 0.75rem;
+  }
+  
+  .showcase-marquee {
+    margin-bottom: 3rem;
+    padding: 1.25rem 0;
+  }
+  
+  .brand-chip {
+    padding: .6rem 1.3rem;
+    font-size: 0.75rem;
+  }
+  
+  /* Optimize hover effects for mobile - reduce intensity */
+  .curated-card:hover {
+    transform: translateY(-12px) scale(1.02);
+  }
+  
+  .curated-card:hover .timepiece-image {
+    transform: scale(1.1) rotate(2deg);
+  }
+}
+
+/* Extra small phones */
+@media (max-width: 480px) {
+  .curated-showcase {
+    padding-top: calc(var(--relux-header-h) + 50px);
+    padding-bottom: 60px;
+  }
+  
+  .showcase-container.container {
+    padding: 0 1rem;
+  }
+  
+  .curated-grid {
+    gap: 1.75rem;
+  }
+  
+  .showcase-main-title {
+    font-size: clamp(1.65rem, 9vw, 2.5rem);
+  }
+  
+  .showcase-description {
+    font-size: 0.9rem;
+  }
+  
+  .card-details {
+    padding: 1.25rem 1.25rem 1.5rem;
+    min-height: 110px;
+  }
+  
+  .timepiece-name {
+    font-size: 1rem;
+  }
+  
+  .price-tag {
+    font-size: 1.25rem;
+  }
+  
+  .premium-badge {
+    top: 10px;
+    left: 10px;
+    padding: 0.45rem 1rem;
+    font-size: 0.6rem;
+  }
+  
+  .collection-cta {
+    padding: 0.95rem 1.75rem;
+  }
+  
+  .showcase-marquee {
+    margin-bottom: 2.5rem;
+  }
+  
+  .brand-chip {
+    padding: .55rem 1.2rem;
+    font-size: 0.7rem;
+  }
+}
+
+/* Landscape phones */
+@media (max-width: 900px) and (max-height: 500px) {
+  .curated-showcase {
+    padding-top: calc(var(--relux-header-h) + 40px);
+    padding-bottom: 60px;
+  }
+  
+  .curated-grid {
+    --cols: 2;
+    gap: 1.5rem;
+  }
+  
+  .showcase-title-section {
+    margin-bottom: 2.5rem;
+  }
+  
+  .showcase-main-title {
+    font-size: clamp(1.75rem, 5vw, 2.5rem);
+  }
+  
+  .showcase-marquee {
+    margin-bottom: 2rem;
+    padding: 1rem 0;
+  }
+}
+
+/* ========================================
+   REDUCED MOTION
+   ======================================== */
+@media (prefers-reduced-motion: reduce) {
+  .curated-card,
+  .timepiece-image,
+  .brand-chip,
+  .image-glow,
+  .premium-badge,
+  .collection-cta { 
+    animation: none !important; 
+    transition: none !important;
+  }
+  .curated-card {
+    opacity: 1;
+    transform: none;
+  }
+  .marquee-track { animation: none !important; }
+  .loading-ring { animation: none !important; }
+}

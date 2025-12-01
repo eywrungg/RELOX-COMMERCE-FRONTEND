@@ -1,0 +1,324 @@
+/* =====================================
+   RELUX — EXPLORE (third section, fixed)
+   ORIGINAL CODE - ONLY REMOVED WHITE RECTANGLES
+   ===================================== */
+
+:root{
+  --rx-ink: #0b0b0b;
+  --rx-brd: rgba(17,24,39,.10);
+  --rx-gold:#fbbf24;
+  --rx-gold2:#f59e0b;
+
+  /* If your header height changes, tweak this: */
+  --header-h: 72px;
+}
+
+/* Section: own stacking context; do NOT float above previous section */
+.rx-explore{
+  position: relative;
+  isolation: isolate;
+  z-index: 0;          /* don't sit above earlier sections */
+  background: #fff;
+  padding-top: calc(var(--header-h) + 28px);
+  padding-bottom: clamp(84px, 10vw, 112px);
+  --progress: 0;
+}
+
+.rx-rail{
+  position: absolute;
+  left: 16px; top: 0; bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, rgba(0,0,0,.06), transparent);
+  pointer-events: none;
+  z-index: -1;         /* keeps the line behind Explore content */
+}
+
+
+/* --- HARD SEPARATORS / GUARDS ------------------------------ */
+
+/* Never let the next section pull upward with negative margins */
+.rx-explore + section,
+.rx-explore + * {
+  margin-top: 0 !important;
+  position: relative;
+  z-index: 0;
+}
+
+/* Reset any global 'section header' styles that might position headings */
+.rx-explore .rx-header,
+.rx-explore .rx-title,
+.rx-explore .rx-copy {
+  position: static !important;
+  margin-top: 0 !important;
+  background: none !important;           /* ← FIX: Remove white background */
+  background-color: transparent !important; /* ← FIX: Ensure no background */
+}
+
+/* --- Side progress rail (behind content) ------------------- */
+
+.rx-rail{
+  position: absolute;
+  left: 16px; top: 0; bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, rgba(0,0,0,.06), transparent);
+  pointer-events: none;
+  z-index: 0; /* keep it behind cards/text */
+}
+.rx-rail__fill{
+  position:absolute; left:0; top:0; width:100%;
+  height: calc(var(--progress) * 100%);
+  background: linear-gradient(180deg, var(--rx-gold), var(--rx-gold2));
+  box-shadow: 0 0 18px rgba(251,191,36,.35);
+  transition: height .25s linear;
+}
+
+/* --- Shell ----------------------------------------------- */
+
+.rx-shell.container{
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+/* --- Header block ---------------------------------------- */
+
+.rx-header{
+  text-align: left;
+  margin-bottom: clamp(18px, 3.6vw, 28px);
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity .6s ease, transform .6s ease;
+  background: none !important;           /* ← FIX: Remove white background */
+  background-color: transparent !important; /* ← FIX: Ensure no background */
+}
+.rx-header.in-view{ opacity:1; transform:none; }
+
+.rx-eyebrow{
+  display:inline-block; padding:.35rem .6rem; border-radius:9999px;
+  background: rgba(0,0,0,.04); border:1px solid var(--rx-brd);
+  color:#334155; letter-spacing:.15em; font-weight:800; font-size:.7rem; text-transform:uppercase;
+  margin-bottom:.5rem;
+}
+.rx-title{
+  font-family:'Space Grotesk', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-weight:800; letter-spacing:-.01em; color:var(--rx-ink);
+  font-size: clamp(1.8rem, 4.6vw, 2.6rem); line-height:1.12;
+  margin:.15rem 0 .35rem 0;
+  background: none !important;           /* ← FIX: Remove white background */
+  background-color: transparent !important; /* ← FIX: Ensure no background */
+}
+.rx-copy{
+  color:#1f2937; max-width: 60ch; font-weight:600; opacity:.9;
+  opacity: 0; transform: translateY(16px);
+  transition: opacity .6s ease .05s, transform .6s ease .05s;
+  background: none !important;           /* ← FIX: Remove white background */
+  background-color: transparent !important; /* ← FIX: Ensure no background */
+}
+.rx-copy.in-view{ opacity:1; transform:none; }
+
+/* --- Loading State --------------------------------------- */
+
+.rx-loading{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  gap: 1.5rem;
+}
+
+.rx-spinner{
+  width: 48px;
+  height: 48px;
+  border: 4px solid rgba(0,0,0,.08);
+  border-top-color: var(--rx-gold);
+  border-radius: 50%;
+  animation: rx-spin 0.8s linear infinite;
+}
+
+@keyframes rx-spin{
+  to { transform: rotate(360deg); }
+}
+
+.rx-loading p{
+  color: #4b5563;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+}
+
+.rx-empty{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  color: #6b7280;
+  font-weight: 600;
+}
+
+/* --- Grid & Cards ---------------------------------------- */
+
+.rx-grid{
+  display:grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: clamp(.9rem, 2vw, 1.2rem);
+}
+
+.rx-card{
+  --y: 0px; /* parallax set by JS */
+  grid-column: span 4;
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(0,0,0,.04), rgba(0,0,0,.02));
+  border: 1px solid var(--rx-brd);
+  transform: translateY(calc(16px + var(--y)));
+  opacity: 0;
+  transition:
+    transform .9s cubic-bezier(.34,1.56,.64,1),
+    opacity .6s ease,
+    box-shadow .25s ease,
+    filter .25s ease;
+  will-change: transform, opacity;
+}
+.rx-card.in-view{ opacity: 1; transform: translateY(var(--y)); }
+
+.rx-card--tall{ grid-column: span 4; grid-row: span 2; }
+.rx-card--wide{ grid-column: span 8; }
+
+.rx-card__link{ display:block; color:inherit; text-decoration:none }
+.rx-card__image{
+  width: 100%; aspect-ratio: 4 / 5;
+  background: var(--img, radial-gradient(120% 80% at 50% 35%, #f3f4f6 0%, #e5e7eb 100%)) center/cover no-repeat;
+  filter: contrast(1.03) saturate(1.02);
+}
+.rx-card__body{
+  padding: .85rem 1rem 1rem;
+  background: rgba(255,255,255,.86);
+  backdrop-filter: blur(8px);
+}
+.rx-card__body h4{ font-weight:900; color:var(--rx-ink); margin: .1rem 0 .25rem 0; }
+.rx-card__body p{ color:#4b5563; font-weight:600; font-size:.95rem; }
+
+.rx-card:hover{
+  box-shadow: 0 18px 40px rgba(0,0,0,.14);
+  transform: translateY(calc(-3px + var(--y))) rotate3d(1,0,0,.6deg);
+}
+.rx-card:hover .rx-card__image{ filter: contrast(1.07) saturate(1.06); }
+
+/* --- Responsive ----------------------------------------- */
+
+@media (max-width: 1100px){
+  .rx-card{ grid-column: span 6; }
+  .rx-card--wide{ grid-column: span 12; }
+}
+
+@media (max-width: 900px){
+  .rx-explore{
+    padding-top: calc(var(--header-h) + 20px);
+    padding-bottom: clamp(60px, 8vw, 80px);
+  }
+  
+  .rx-title{
+    font-size: clamp(1.6rem, 4.2vw, 2.2rem);
+  }
+}
+
+@media (max-width: 768px){
+  .rx-grid{
+    gap: clamp(.75rem, 1.8vw, 1rem);
+  }
+  
+  .rx-card__image{
+    aspect-ratio: 3 / 4;
+  }
+  
+  .rx-card__body{
+    padding: .75rem .85rem .85rem;
+  }
+  
+  .rx-card__body h4{
+    font-size: .95rem;
+  }
+  
+  .rx-card__body p{
+    font-size: .85rem;
+  }
+}
+
+@media (max-width: 640px){
+  .rx-explore{
+    padding-top: calc(var(--header-h) + 16px);
+    padding-bottom: 60px;
+  }
+  
+  .rx-shell.container{
+    padding: 0 1rem;
+  }
+  
+  .rx-grid{ 
+    grid-template-columns: repeat(6, 1fr);
+    gap: .85rem;
+  }
+  
+  .rx-card{ 
+    grid-column: span 6;
+    border-radius: 14px;
+  }
+  
+  .rx-card--tall,
+  .rx-card--wide{
+    grid-column: span 6;
+    grid-row: span 1;
+  }
+  
+  .rx-header{
+    margin-bottom: 16px;
+  }
+  
+  .rx-title{
+    font-size: clamp(1.4rem, 5vw, 1.8rem);
+  }
+  
+  .rx-copy{
+    font-size: .9rem;
+  }
+  
+  .rx-eyebrow{
+    font-size: .65rem;
+    padding: .3rem .55rem;
+  }
+}
+
+@media (max-width: 480px){
+  .rx-explore{
+    padding-top: calc(var(--header-h) + 12px);
+    padding-bottom: 50px;
+  }
+  
+  .rx-shell.container{
+    padding: 0 .875rem;
+  }
+  
+  .rx-grid{
+    gap: .75rem;
+  }
+  
+  .rx-card{
+    border-radius: 12px;
+  }
+  
+  .rx-card__body{
+    padding: .65rem .75rem .75rem;
+  }
+}
+
+/* --- Reduced motion ------------------------------------- */
+@media (prefers-reduced-motion: reduce){
+  .rx-card, .rx-header, .rx-copy{
+    transition: none !important; transform: none !important; opacity: 1 !important;
+  }
+  .rx-spinner{
+    animation: none !important;
+  }
+}

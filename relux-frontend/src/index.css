@@ -1,0 +1,90 @@
+
+/* ---------- Layout fixes for React app ---------- */
+
+/* Header fixed height: adjust if you change header.h-20 */
+:root { --header-height: 80px; --sidebar-left-w: 12rem; --sidebar-right-w: 5rem; }
+
+html,body,#root { height: 100%; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #000;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* fixed header — use same height as App.jsx pt */
+header.fixed, .header-fixed { height: var(--header-height); }
+
+/* ensure main content sits below header */
+.main-content {
+  margin-left: var(--sidebar-left-w);
+  margin-right: var(--sidebar-right-w);
+  min-height: calc(100vh - var(--header-height));
+  position: relative;
+  z-index: 10;
+  padding-top: 0; /* App.jsx adds top padding */
+}
+
+/* hero should respect header */
+.hero-section {
+  min-height: calc(100vh - var(--header-height));
+  padding-top: 0;
+  position: relative;
+  z-index: 5;
+}
+
+/* small tweak: circle shouldn't intercept clicks */
+.circle-bg { pointer-events: none; }
+
+/* ensure nav-arrows have highest z so they remain clickable */
+.nav-arrows { z-index: 60; }
+
+/* Ensure top spacing accounts for header in small screens (mobile stacking) */
+@media (max-width: 1024px) {
+  .main-content { margin-left: 0; margin-right: 0; padding-top: var(--header-height); }
+}
+
+/* Accessibility: keep .sr-only */
+.sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+
+/* End of fixes */
+
+/* ---------- custom CSS ---------- */
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body { font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background-color:#000; overflow-x:hidden; }
+
+.main-content{ margin-left:12rem; margin-right:5rem; min-height:100vh; position:relative; z-index:10; }
+
+/* circle / carousel */
+.circle-bg{ width:600px; height:600px; border-radius:50%; background:radial-gradient(circle,#fff 0%, #f8f8f8 100%); box-shadow: 0 0 80px rgba(251,191,36,0.3), 0 0 160px rgba(251,191,36,0.15), 0 30px 60px rgba(0,0,0,0.6), inset 0 0 100px rgba(251,191,36,0.05); display:flex; align-items:center; justify-content:center; opacity:0; transform:scale(0.3); transition: all 1.4s cubic-bezier(0.34,1.56,0.64,1); pointer-events:none; }
+.circle--reduced{ width:400px!important; height:400px!important; }
+.circle-bg.animate{ opacity:1; transform:scale(1); }
+
+/* watch image */
+.watch-image{ width:360px; height:360px; object-fit:contain; opacity:0; transform:scale(0.4); transition: all 1.3s cubic-bezier(0.34,1.56,0.64,1) 0.4s; filter: drop-shadow(0 8px 16px rgba(0,0,0,0.3)); }
+.watch-image.animate{ opacity:1; transform:scale(1); }
+
+/* nav arrows */
+.nav-arrows{ opacity:0; transform:translateY(40px) scale(0.8); transition: all 0.8s cubic-bezier(0.34,1.56,0.64,1) 1.1s; pointer-events:auto; z-index:100; }
+.nav-arrows.animate{ opacity:1; transform:translateY(0) scale(1); }
+
+/* progress bar */
+.progress-bar{ width:0%; transition: width 2.5s cubic-bezier(0.65,0,0.35,1) 1.5s; box-shadow:0 0 10px rgba(251,191,36,0.5); }
+.progress-bar.animate{ width:25%; }
+
+/* category cards, section headers, ripple */
+.category-card{ opacity:0; transform: translateX(-80px) translateY(20px); transition: all 1s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.category-card.in-view{ opacity:1; transform: translateX(0) translateY(0); }
+.section-header{ opacity:0; transform: translateY(40px) scale(0.95); transition: all 1s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.section-header.in-view{ opacity:1; transform: translateY(0) scale(1); }
+
+/* ripple keyframes */
+@keyframes ripple { to { transform: scale(4); opacity: 0; } }
+
+/* small responsive tweaks */
+@media (max-width:1280px){ .main-content{ margin-left:10rem; margin-right:4rem; } .circle-bg.circle--reduced{ width:300px!important; height:300px!important; } .watch-image{ width:280px; height:280px; } }
+@media (max-width:1024px){ .main-content{ margin-left:0; margin-right:0; } }

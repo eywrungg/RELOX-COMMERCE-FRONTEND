@@ -1,0 +1,194 @@
+/* ===== Sidebar rail ===== */
+.sidebar-fixed {
+  --rail-w: 12rem;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--rail-w);
+  height: 100vh;
+  z-index: 40;
+  /* Match the NEW header height of 100px + extra spacing */
+  padding-top: 130px;
+  background: transparent !important;
+  border-right: none;
+}
+
+.sidebar-fixed.sidebar--on {
+  border-right: 1px solid rgba(17, 24, 39, 0.08);
+}
+
+/* ===== Navigation ===== */
+.sidebar-fixed nav {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  /* CRITICAL: This 2rem EXACTLY matches BOTH logo positions */
+  padding-left: 2rem;
+  padding-right: 1.25rem;
+}
+
+.nav-item {
+  text-decoration: none;
+  color: #4b5563;
+  font-weight: 800;
+  font-size: 0.88rem;
+  letter-spacing: 0.14em;
+  line-height: 1.15;
+  transition: color 0.2s ease, transform 0.2s ease;
+  position: relative;
+}
+
+.nav-item::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #D4AF37, #FFD700);
+  transition: width 0.3s ease;
+}
+
+.nav-item:hover {
+  color: #D4AF37;
+  transform: translateX(0.25rem);
+}
+
+.nav-item:hover::after {
+  width: 100%;
+}
+
+/* ===== Socials (bottom) ===== */
+.sidebar-social-bottom {
+  position: fixed;
+  left: 0;
+  bottom: 2rem;
+  width: var(--rail-w);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /* CRITICAL: Must match nav padding-left and BOTH logo positions */
+  padding-left: 2rem;
+  gap: 0.75rem;
+}
+
+.social-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.92);
+  color: #1f2937;
+  border: 1px solid rgba(17, 24, 39, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.social-icon:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  background: #fff;
+}
+
+/* ===== Animations ===== */
+.sidebar-fixed .nav-item {
+  opacity: 0;
+  transform: translateX(-24px);
+  transition:
+    opacity 0.55s cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 0.55s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition-delay: var(--delay, 0ms);
+}
+
+.sidebar-fixed .nav-item.enter {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.sidebar-social-bottom .social-icon {
+  opacity: 0;
+  transform: translate(-18px, 10px);
+  transition:
+    opacity 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition-delay: var(--delay, 0ms);
+}
+
+.sidebar-social-bottom .social-icon.enter {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+/* ===== Mobile ===== */
+@media (max-width: 1024px) {
+  .sidebar-fixed {
+    position: relative;
+    width: 100%;
+    height: auto;
+    padding-top: 120px; /* Match tablet header height */
+    border-right: none;
+  }
+
+  .sidebar-fixed.sidebar--on {
+    border-right: none;
+  }
+
+  .sidebar-fixed nav {
+    flex-direction: row;
+    justify-content: center;
+    gap: 1.25rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .sidebar-social-bottom {
+    position: static;
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding-left: 0;
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar-fixed {
+    padding-top: 100px; /* Match mobile header height */
+  }
+
+  .sidebar-fixed nav {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    gap: 1rem;
+  }
+
+  .nav-item {
+    font-size: 0.82rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar-fixed {
+    padding-top: 90px;
+  }
+
+  .sidebar-fixed nav {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    gap: 0.75rem;
+  }
+
+  .nav-item {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+  }
+
+  .social-icon {
+    width: 36px;
+    height: 36px;
+  }
+}

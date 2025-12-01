@@ -1,0 +1,1155 @@
+/* ========================================
+   RELUX ABOUT - ENHANCED SCROLL EXPERIENCE
+   Yellow, White, Black Color Scheme
+   WITH VIDEO BACKGROUND HERO
+======================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;600;700;800&display=swap');
+
+:root {
+  --yellow: #fbbf24;
+  --yellow-bright: #fcd34d;
+  --yellow-dark: #f59e0b;
+  --black: #0a0a0a;
+  --white: #ffffff;
+  --gray: #737373;
+}
+
+/* ========================================
+   SCROLLBAR WRAPPER - ISOLATED CONTAINER
+======================================== */
+
+.about-page-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  z-index: 0;
+  
+  scrollbar-width: thin;
+  scrollbar-color: var(--yellow) var(--black);
+}
+
+.about-page-wrapper::-webkit-scrollbar {
+  width: 8px;
+}
+
+.about-page-wrapper::-webkit-scrollbar-track {
+  background: var(--black);
+}
+
+.about-page-wrapper::-webkit-scrollbar-thumb {
+  background: var(--yellow);
+  border-radius: 4px;
+}
+
+.about-page-wrapper::-webkit-scrollbar-thumb:hover {
+  background: var(--yellow-bright);
+}
+
+.about-page {
+  background: var(--white);
+  color: var(--black);
+  min-height: 100vh;
+  padding-top: 0;
+}
+
+/* ========================================
+   FADE & ZOOM ANIMATIONS
+======================================== */
+
+.about-page .fade-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.about-page .fade-on-scroll.fade-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.about-page .zoom-on-scroll {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition-delay: calc(var(--index) * 0.1s);
+}
+
+.about-page .fade-visible .zoom-on-scroll {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ========================================
+   1. HERO ABOUT - VIDEO BACKGROUND + TEXT SPLIT
+======================================== */
+
+.about-page .hero-about-section {
+  min-height: 85vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: var(--white);
+  overflow: hidden;
+  padding-top: 88px;
+}
+
+/* Video Background Container */
+.about-page .hero-video-container {
+  position: absolute;
+  top: 88px;
+  left: 0;
+  width: 100%;
+  height: calc(85vh - 88px);
+  overflow: hidden;
+  z-index: 0;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.about-page .hero-video-bg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Dark overlay for text readability */
+.about-page .hero-video-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(10, 10, 10, 0.4) 0%,
+    rgba(26, 26, 26, 0.3) 50%,
+    rgba(10, 10, 10, 0.4) 100%
+  );
+  z-index: 1;
+}
+
+.about-page .hero-video-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(251, 191, 36, 0.08), transparent 50%),
+    radial-gradient(circle at 80% 50%, rgba(251, 191, 36, 0.06), transparent 50%);
+  animation: aboutPulse 8s ease-in-out infinite;
+}
+
+@keyframes aboutPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.about-page .hero-about-content {
+  position: absolute;
+  z-index: 2;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 1400px;
+  padding: 0 2rem;
+}
+
+.about-page .hero-about-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(5rem, 15vw, 12rem);
+  font-weight: 900;
+  line-height: 1;
+  margin: 0;
+  letter-spacing: -0.05em;
+  color: var(--white);
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.about-page .split-text .text-left {
+  transform: translateX(calc(-100px * var(--split)));
+  display: inline-block;
+  transition: transform 0.3s ease-out;
+}
+
+.about-page .split-text .text-right {
+  transform: translateX(calc(100px * var(--split)));
+  display: inline-block;
+  transition: transform 0.3s ease-out;
+  color: var(--yellow);
+  text-shadow: 0 0 40px rgba(251, 191, 36, 0.5);
+}
+
+.about-page .hero-about-subtitle {
+  font-size: clamp(1.25rem, 3vw, 2rem);
+  color: var(--gray);
+  margin-top: 2rem;
+  font-weight: 300;
+  transition: opacity 0.3s ease;
+}
+
+.about-page .scroll-hint-about {
+  position: absolute;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--yellow);
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  animation: aboutBounce 2s ease-in-out infinite;
+  z-index: 2;
+}
+
+@keyframes aboutBounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-15px); }
+}
+
+/* ========================================
+   2. OUR STORY - REDESIGNED
+======================================== */
+
+.about-page .story-section {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--white);
+  padding: 6rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.about-page .story-section::before {
+  content: 'STORY';
+  position: absolute;
+  font-size: clamp(8rem, 20vw, 20rem);
+  font-weight: 900;
+  color: rgba(251, 191, 36, 0.03);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Playfair Display', serif;
+  letter-spacing: 0.1em;
+  user-select: none;
+  pointer-events: none;
+}
+
+.about-page .story-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.about-page .story-content {
+  text-align: center;
+}
+
+.about-page .story-badge {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  background: linear-gradient(135deg, var(--yellow-dark), var(--yellow));
+  color: var(--black);
+  font-size: 0.875rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  border-radius: 3rem;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  box-shadow: 0 10px 30px rgba(251, 191, 36, 0.3);
+}
+
+.about-page .story-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 900;
+  color: var(--black);
+  margin-bottom: 2rem;
+  line-height: 1.1;
+}
+
+.about-page .story-title .highlight {
+  color: var(--yellow);
+  display: block;
+}
+
+.about-page .story-description {
+  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+  color: var(--gray);
+  line-height: 1.8;
+  max-width: 800px;
+  margin: 0 auto 3rem;
+  font-weight: 300;
+}
+
+.about-page .story-stats-mini {
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+  flex-wrap: wrap;
+  margin-top: 4rem;
+}
+
+.about-page .story-stat {
+  text-align: center;
+}
+
+.about-page .story-stat-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 900;
+  color: var(--yellow);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.about-page .story-stat-label {
+  font-size: 0.875rem;
+  color: var(--gray);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+}
+
+.about-page .story-decorative-line {
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, var(--yellow), transparent);
+  margin: 3rem auto;
+}
+
+/* ========================================
+   3. OUR VALUES - STAGGERED CARD REVEAL
+======================================== */
+
+.about-page .values-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, var(--white), #f9fafb);
+  padding: 8rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.about-page .values-section::before {
+  content: 'VALUES';
+  position: absolute;
+  font-size: clamp(8rem, 20vw, 20rem);
+  font-weight: 900;
+  color: rgba(251, 191, 36, 0.03);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Playfair Display', serif;
+  letter-spacing: 0.1em;
+  user-select: none;
+  pointer-events: none;
+}
+
+.about-page .values-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.about-page .values-header {
+  text-align: center;
+  margin-bottom: 5rem;
+}
+
+.about-page .values-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: 900;
+  color: var(--black);
+  margin-bottom: 1rem;
+}
+
+.about-page .values-subtitle {
+  font-size: clamp(1.125rem, 2vw, 1.5rem);
+  color: var(--gray);
+  font-weight: 300;
+}
+
+.about-page .values-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 3rem;
+}
+
+.about-page .value-card {
+  background: var(--white);
+  border-radius: 2rem;
+  padding: 3rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+  border: 2px solid transparent;
+  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.about-page .value-card:hover {
+  transform: translateY(-15px) scale(1.02) !important;
+  border-color: var(--yellow);
+  box-shadow: 0 25px 60px rgba(251, 191, 36, 0.25);
+}
+
+.about-page .value-icon-wrapper {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 2rem;
+  background: linear-gradient(135deg, var(--yellow-dark), var(--yellow));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(251, 191, 36, 0.3);
+  transition: all 0.4s ease;
+}
+
+.about-page .value-card:hover .value-icon-wrapper {
+  transform: scale(1.1) rotate(10deg);
+}
+
+.about-page .value-icon {
+  font-size: 3rem;
+}
+
+.about-page .value-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--black);
+  margin-bottom: 1rem;
+}
+
+.about-page .value-desc {
+  color: var(--gray);
+  line-height: 1.7;
+  font-size: 1rem;
+}
+
+.about-page .value-shine {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent, rgba(251, 191, 36, 0.15), transparent);
+  transform: translateX(-100%) rotate(45deg);
+  transition: transform 0.6s ease;
+}
+
+.about-page .value-card:hover .value-shine {
+  transform: translateX(100%) rotate(45deg);
+}
+
+/* ========================================
+   4. GALLERY - 5 CARDS ONE BY ONE REVEAL (NO PROGRESS BAR)
+======================================== */
+
+.about-page .gallery-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--black);
+  position: relative;
+  overflow: hidden;
+  padding: 4rem 2rem;
+}
+
+.about-page .gallery-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.about-page .gallery-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.about-page .gallery-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: 900;
+  color: var(--white);
+  margin-bottom: 1rem;
+}
+
+.about-page .gallery-header p {
+  font-size: 1.25rem;
+  color: var(--gray);
+}
+
+.about-page .gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2rem;
+}
+
+.about-page .gallery-item {
+  aspect-ratio: 1;
+  background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
+  border-radius: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 2rem;
+  border: 2px solid rgba(251, 191, 36, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.about-page .gallery-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent, rgba(251, 191, 36, 0.1), transparent);
+  transform: translateX(-100%);
+  animation: aboutShine 3s ease-in-out infinite;
+}
+
+@keyframes aboutShine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.about-page .gallery-icon {
+  font-size: 4rem;
+}
+
+.about-page .gallery-name {
+  color: var(--yellow);
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* ========================================
+   5. WHY RELUX - EXPANDING CARDS (NO PROGRESS BAR)
+======================================== */
+
+.about-page .why-relux-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, var(--white), #f9fafb);
+  position: relative;
+  overflow: hidden;
+  padding: 4rem 2rem;
+}
+
+.about-page .why-relux-section::before {
+  content: 'WHY?';
+  position: absolute;
+  font-size: clamp(10rem, 25vw, 25rem);
+  font-weight: 900;
+  color: rgba(251, 191, 36, 0.02);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Playfair Display', serif;
+  letter-spacing: 0.1em;
+  user-select: none;
+  pointer-events: none;
+}
+
+.about-page .why-relux-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.about-page .why-relux-header {
+  text-align: center;
+  margin-bottom: 5rem;
+}
+
+.about-page .why-relux-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: 900;
+  color: var(--black);
+  margin-bottom: 1rem;
+}
+
+.about-page .why-relux-header p {
+  font-size: clamp(1.125rem, 2vw, 1.5rem);
+  color: var(--gray);
+  font-weight: 300;
+}
+
+.about-page .why-relux-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3rem;
+}
+
+.about-page .why-relux-card {
+  background: var(--white);
+  border-radius: 2rem;
+  padding: 3rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+  border: 2px solid transparent;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease !important;
+}
+
+.about-page .why-relux-card:hover {
+  transform: translateY(-10px) scale(1.02) !important;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
+  border-color: var(--accent-color, var(--yellow));
+}
+
+.about-page .why-icon {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  transition: all 0.4s ease;
+}
+
+.about-page .why-relux-card:hover .why-icon {
+  transform: scale(1.15) rotate(-10deg);
+}
+
+.about-page .why-relux-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--black);
+  margin-bottom: 1rem;
+}
+
+.about-page .why-relux-card p {
+  color: var(--gray);
+  line-height: 1.8;
+  font-size: 1.125rem;
+}
+
+.about-page .card-glow {
+  position: absolute;
+  inset: -50%;
+  border-radius: 50%;
+  filter: blur(40px);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.about-page .why-relux-card:hover .card-glow {
+  opacity: 1;
+}
+
+/* ========================================
+   6. TIMELINE - PROGRESSIVE REVEAL
+======================================== */
+
+.about-page .timeline-section {
+  padding: 6rem 2rem;
+  background: var(--black);
+  --timeline-progress: 0;
+}
+
+.about-page .timeline-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.about-page .timeline-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: var(--white);
+  margin-bottom: 1rem;
+}
+
+.about-page .timeline-header p {
+  font-size: 1.25rem;
+  color: var(--gray);
+}
+
+.about-page .timeline {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  padding-left: 100px;
+}
+
+.about-page .timeline-line {
+  position: absolute;
+  left: 40px;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  background: #262626;
+}
+
+.about-page .timeline-line::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: calc(var(--timeline-progress) * 100%);
+  background: linear-gradient(180deg, var(--yellow-dark), var(--yellow));
+  box-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
+  transition: height 0.3s ease;
+}
+
+.about-page .timeline-item {
+  position: relative;
+  margin-bottom: 4rem;
+  opacity: calc(var(--timeline-progress) * 3);
+  transform: translateX(calc((1 - var(--timeline-progress)) * -30px));
+  transition: all 0.5s ease;
+}
+
+.about-page .timeline-item::before {
+  content: attr(data-year);
+  position: absolute;
+  left: -100px;
+  top: 0;
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--yellow);
+}
+
+.about-page .timeline-dot {
+  position: absolute;
+  left: -67px;
+  top: 5px;
+  width: 20px;
+  height: 20px;
+  background: var(--yellow);
+  border: 4px solid var(--black);
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
+  z-index: 1;
+}
+
+.about-page .timeline-content {
+  background: #1a1a1a;
+  padding: 2rem;
+  border-radius: 1rem;
+  border-left: 4px solid var(--yellow);
+}
+
+.about-page .timeline-content h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 0.5rem;
+}
+
+.about-page .timeline-content p {
+  color: var(--gray);
+  line-height: 1.6;
+}
+
+/* ========================================
+   7. TEAM - HOVER EFFECTS (UPDATED FOR 5 MEMBERS)
+======================================== */
+
+.about-page .team-section {
+  padding: 6rem 2rem;
+  background: var(--white);
+}
+
+.about-page .team-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.about-page .team-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: var(--black);
+  margin-bottom: 1rem;
+}
+
+.about-page .team-header p {
+  font-size: 1.25rem;
+  color: var(--gray);
+}
+
+.about-page .team-grid {
+  max-width: 1400px; /* Increased from 1200px */
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* Changed to exactly 5 columns */
+  gap: 1.5rem; /* Reduced from 2rem */
+}
+
+.about-page .team-card {
+  background: var(--black);
+  border-radius: 1.5rem;
+  padding: 2rem 1.5rem; /* Reduced from 3rem 2rem */
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.about-page .team-card:hover {
+  transform: translateY(-15px) scale(1.05);
+  box-shadow: 0 30px 60px rgba(251, 191, 36, 0.3);
+}
+
+.about-page .card-shine {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent, rgba(251, 191, 36, 0.2), transparent);
+  transform: translateX(-100%) rotate(45deg);
+  transition: transform 0.6s ease;
+}
+
+.about-page .team-card:hover .card-shine {
+  transform: translateX(100%) rotate(45deg);
+}
+/* ========================================
+   7. TEAM - WITH IMAGE SUPPORT
+======================================== */
+
+.about-page .team-avatar {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 1.25rem;
+  background: linear-gradient(135deg, var(--yellow-dark), var(--yellow));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--black);
+  box-shadow: 0 10px 30px rgba(251, 191, 36, 0.3);
+  transition: all 0.3s ease;
+  overflow: hidden; /* ✅ Important for circular image crop */
+  position: relative;
+}
+
+/* Image styling */
+.about-page .team-avatar-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* ✅ Ensures image fills circle properly */
+  object-position: center;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+/* Initials fallback */
+.about-page .team-avatar-initials {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--black);
+}
+
+.about-page .team-card:hover .team-avatar {
+  transform: scale(1.1) rotate(10deg);
+}
+
+.about-page .team-card:hover .team-avatar-image {
+  transform: scale(1.15); /* ✅ Subtle zoom on hover */
+}
+.about-page .team-card h3 {
+  font-size: 1.25rem; /* Reduced from 1.5rem */
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+
+.about-page .team-card p {
+  color: var(--gray);
+  font-size: 0.8rem; /* Reduced from 0.875rem */
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* ========================================
+   RESPONSIVE FOR TEAM SECTION
+======================================== */
+
+@media (max-width: 1400px) {
+  .about-page .team-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.25rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .about-page .team-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-page .team-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  
+  .about-page .team-card {
+    padding: 2rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-page .team-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  
+  .about-page .team-card h3 {
+    font-size: 1.1rem;
+  }
+}
+
+/* ========================================
+   8. CTA - FINAL SECTION
+======================================== */
+
+.about-page .cta-section {
+  padding: 8rem 2rem;
+  background: linear-gradient(135deg, var(--black), #1a1a1a);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.about-page .cta-section::before {
+  content: '';
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(251, 191, 36, 0.15), transparent 70%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: aboutCtaPulse 4s ease-in-out infinite;
+}
+
+@keyframes aboutCtaPulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.2); }
+}
+
+.about-page .cta-content {
+  position: relative;
+  z-index: 1;
+}
+
+.about-page .cta-content h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 900;
+  color: var(--white);
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.about-page .highlight {
+  color: var(--yellow);
+  text-shadow: 0 0 40px rgba(251, 191, 36, 0.5);
+}
+
+.about-page .cta-content p {
+  font-size: 1.25rem;
+  color: var(--gray);
+  margin-bottom: 3rem;
+}
+
+.about-page .cta-buttons {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.about-page .btn-primary,
+.about-page .btn-secondary {
+  padding: 1.25rem 3rem;
+  border-radius: 3rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.about-page .btn-primary {
+  background: linear-gradient(135deg, var(--yellow-dark), var(--yellow));
+  color: var(--black);
+  box-shadow: 0 10px 30px rgba(251, 191, 36, 0.3);
+}
+
+.about-page .btn-primary:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(251, 191, 36, 0.4);
+}
+
+.about-page .btn-primary svg {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s ease;
+}
+
+.about-page .btn-primary:hover svg {
+  transform: translateX(5px);
+}
+
+.about-page .btn-secondary {
+  background: transparent;
+  border: 2px solid var(--yellow);
+  color: var(--yellow);
+}
+
+.about-page .btn-secondary:hover {
+  background: var(--yellow);
+  color: var(--black);
+  transform: translateY(-5px);
+}
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 768px) {
+  .about-page .hero-about-section {
+    min-height: 70vh;
+    padding-top: 72px;
+  }
+
+  .about-page .hero-video-container {
+    top: 72px;
+    height: calc(70vh - 72px);
+  }
+
+  .about-page .hero-about-content {
+    top: 50%;
+  }
+
+  .about-page .hero-about-title {
+    font-size: clamp(3rem, 12vw, 6rem);
+    gap: 1rem;
+  }
+
+  .about-page .story-section,
+  .about-page .values-section {
+    min-height: auto;
+    padding: 4rem 2rem;
+  }
+
+  .about-page .story-stats-mini {
+    gap: 2rem;
+  }
+
+  .about-page .story-stat-number {
+    font-size: 2rem;
+  }
+
+  .about-page .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .about-page .gallery-item {
+    font-size: 3rem;
+  }
+
+  .about-page .why-relux-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .about-page .gallery-section,
+  .about-page .why-relux-section {
+    min-height: 80vh;
+  }
+
+  .about-page .timeline {
+    padding-left: 60px;
+  }
+
+  .about-page .timeline-section,
+  .about-page .team-section,
+  .about-page .cta-section {
+    padding: 4rem 2rem;
+  }
+
+  .about-page .timeline-item::before {
+    left: -60px;
+    font-size: 1rem;
+  }
+
+  .about-page .timeline-dot {
+    left: -47px;
+    width: 16px;
+    height: 16px;
+  }
+
+  .about-page .cta-buttons {
+    flex-direction: column;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .about-page .gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .about-page .gallery-item {
+    font-size: 4rem;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .about-page *,
+  .about-page *::before,
+  .about-page *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
